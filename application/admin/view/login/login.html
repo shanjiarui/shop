@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>行业智慧能力平台</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/style2.0.css">
+<style type="text/css">
+  ul li{font-size: 30px;color:#2ec0f6;}
+  .tyg-div{z-index:-1000;float:left;position:absolute;left:5%;top:20%;}
+  .tyg-p{
+    font-size: 14px;
+      font-family: 'microsoft yahei';
+      position: absolute;
+      top: 135px;
+      left: 60px;
+  }
+  .tyg-div-denglv{
+    z-index:1000;float:right;position:absolute;right:3%;top:10%;
+  }
+  .tyg-div-form{
+    background-color: #23305a;
+    width:300px;
+    height:auto;
+    margin:120px auto 0 auto;
+    color:#2ec0f6;
+  }
+  .tyg-div-form form {padding:10px;}
+  .tyg-div-form form input[type="text"]{
+    width: 270px;
+      height: 30px;
+      margin: 25px 10px 0px 0px;
+  }
+  #login{
+      cursor: pointer;
+      width: 270px;
+      height: 44px;
+      margin-top: 25px;
+      padding: 0;
+      background: #2ec0f6;
+      -moz-border-radius: 6px;
+      -webkit-border-radius: 6px;
+      border-radius: 6px;
+      border: 1px solid #2ec0f6;
+      -moz-box-shadow:
+          0 15px 30px 0 rgba(255,255,255,.25) inset,
+          0 2px 7px 0 rgba(0,0,0,.2);
+      -webkit-box-shadow:
+          0 15px 30px 0 rgba(255,255,255,.25) inset,
+          0 2px 7px 0 rgba(0,0,0,.2);
+      box-shadow:
+          0 15px 30px 0 rgba(255,255,255,.25) inset,
+          0 2px 7px 0 rgba(0,0,0,.2);
+      font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,.1);
+      -o-transition: all .2s;
+      -moz-transition: all .2s;
+      -webkit-transition: all .2s;
+      -ms-transition: all .2s;
+}
+</style>
+<body>
+<div class="tyg-div">
+  <ul>
+      <li>让</li>
+      <li><div style="margin-left:20px;">码</div></li>
+      <li><div style="margin-left:40px;">尼</div></li>
+      <li><div style="margin-left:60px;">改</div></li>
+      <li><div style="margin-left:80px;">变</div></li>
+      <li><div style="margin-left:100px;">生</div></li>
+      <li><div style="margin-left:120px;">活</div></li>
+    </ul>
+</div> 
+<div id="contPar" class="contPar">
+  <div id="page1"  style="z-index:1;">
+    <div class="title0">后台</div>
+    <div class="title1">登陆</div>
+    <div class="imgGroug">
+      <ul>
+        <img alt="" class="img0 png" src="__STATIC__/img/shan.png">
+        <img alt="" class="img1 png" src="__STATIC__/img/jia.png">
+        <img alt="" class="img2 png" src="__STATIC__/img/rui.png">
+      </ul>
+    </div>
+    <img alt="" class="img3 png" src="__STATIC__/img/page1_3.jpg">
+  </div>
+</div>
+<div class="tyg-div-denglv">
+  <div class="tyg-div-form">
+    <form>
+      <h2>登录</h2><p class="tyg-p">欢迎后台管理员！</p>
+      <div style="margin:5px 0px;">
+        <input type="text" id="name" placeholder="请输入用户名..." />
+      </div>
+      <div style="margin:5px 0px;">
+        <input type="text" id="pwd" placeholder="请输入密码..."/>
+      </div>
+      <div style="margin:5px 0px;">
+        <input type="text" id="code" placeholder="请输入验证码..."/>
+        <img id="imm" src="{:captcha_src()}" alt="captcha" style="width: 273px" onclick="this.src='{:captcha_src()}?'+Math.random()" />
+        <br>
+        <span id="al"></span>
+      </div>
+      <input type="button" id="login" value="登陆">
+    </form>
+  </div>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //登录验证
+    $("#login").click(function() {
+      var code=$("#code").val()
+      var name=$("#name").val()
+      var password=$("#pwd").val()
+      $.ajax({
+        url:"{:url('Login/login_action')}",
+        data:{
+          code:code,
+          name:name,
+          password:password
+        },
+        dataType:'json',
+        success:function (res) {
+          console.log(res)
+          $('#al').css("color","red")
+          $('#al').html(res.message)
+          $("code").attr('src',"{:captcha_src()}?"+Math.random())
+          if (res.status=="ok") {
+            location.href="{:url('admin/index')}"
+          }else{
+            $('#al').css("color","red")
+            $('#al').css("color","red")
+            $("#imm").attr('src',"{:captcha_src()}?"+Math.random())
+          }
+        }
+      })
+    });
+    $("#code").click(function() {
+      $("#code").attr('src',"{:captcha_src()}?"+Math.random())
+    })
+  })
+</script>
+<script type="text/javascript" src="__STATIC__/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/com.js"></script>
+<!--[if IE 6]>
+<script language="javascript" type="text/javascript" src="./script/ie6_png.js"></script>
+<script language="javascript" type="text/javascript">
+DD_belatedPNG.fix(".png");
+</script>
+<![endif]-->
+
+
+</body>
+</html>
