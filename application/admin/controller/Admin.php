@@ -9,4 +9,8 @@ class Admin extends Common
     	// var_dump($arr);
     	return $this->fetch("admin/admin");
     }
+    public function no_control()
+    {
+    	return $this->fetch("admin/no_control");
+    }
 }

@@ -14,4 +14,9 @@ class Index
     {
         return 'hello,' . $name;
     }
+    public function md5($value='')
+    {
+        echo md5('rui');
+    }
+
 }
